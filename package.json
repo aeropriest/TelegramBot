@@ -1,0 +1,41 @@
+{
+  "name": "TeleBot",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "author": "Ashok Jaiswal",
+  "license": "ISC",
+  "description": "Telegram API client",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx functions-framework --target=TelegramBotWebHook",
+    "deploy": "gcloud beta functions deploy myndBotWebhook --region=europe-west1 --env-vars-file .env.yml --runtime nodejs16 --trigger-http",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@google-cloud/functions-framework": "^3.2.0"
+  },
+  "dependencies": {
+    "@google-cloud/documentai": "^7.3.1",
+    "@google-cloud/speech": "^5.4.1",
+    "@google-cloud/translate": "^7.2.1",
+    "dotenv": "^16.1.4",
+    "env-yaml": "^0.1.2",
+    "firebase": "^9.21.0",
+    "firebase-admin": "^11.8.0",
+    "google-spreadsheet": "^3.3.0",
+    "jimp": "^0.22.8",
+    "langchain": "^0.0.91",
+    "node-telegram-bot-api": "^0.61.0",
+    "openai": "^3.2.1",
+    "pdf-parse": "^1.1.1",
+    "qrcode-reader": "^1.0.4",
+    "zod": "^3.21.4"
+  },
+  "keywords": [
+    "Telegram",
+    "Bot",
+    "Node"
+  ]
+}
