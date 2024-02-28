@@ -20,18 +20,13 @@
     "@google-cloud/documentai": "^7.3.1",
     "@google-cloud/speech": "^5.4.1",
     "@google-cloud/translate": "^7.2.1",
-    "dotenv": "^16.1.4",
+    "dotenv": "^16.4.5",
     "env-yaml": "^0.1.2",
     "firebase": "^9.21.0",
     "firebase-admin": "^11.8.0",
     "google-spreadsheet": "^3.3.0",
-    "jimp": "^0.22.8",
-    "langchain": "^0.0.91",
     "node-telegram-bot-api": "^0.61.0",
-    "openai": "^3.2.1",
-    "pdf-parse": "^1.1.1",
-    "qrcode-reader": "^1.0.4",
-    "zod": "^3.21.4"
+    "openai": "^3.2.1"
   },
   "keywords": [
     "Telegram",
