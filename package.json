@@ -29,7 +29,8 @@
     "google-spreadsheet": "^3.3.0",
     "googleapis": "105",
     "node-telegram-bot-api": "^0.61.0",
-    "openai": "^3.2.1"
+    "openai": "^3.2.1",
+    "yahoo-finance": "^0.3.8"
   },
   "keywords": [
     "Telegram",

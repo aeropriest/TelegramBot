@@ -1,12 +1,8 @@
 // https://www.youtube.com/watch?v=sRNQ-9DVsQU
 const TelegramBot = require("node-telegram-bot-api");
 const { google } = require("googleapis");
-const { GoogleSpreadsheet } = require("google-spreadsheet");
-const { JWT } = require("google-auth-library");
-const { authenticate } = require("@google-cloud/local-auth");
-const fs = require("fs").promises;
-const path = require("path");
 const keys = require("./gclient.json");
+const yahooFinance = require("yahoo-finance");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -106,6 +102,20 @@ exports.TelegramBotWebHook = async (req, res) => {
   res.status(200).end();
 };
 
+const getCurrentStockPrice = async (symbol) => {
+  try {
+    const quote = await yahooFinance.quote({
+      symbol: symbol,
+      modules: ["price"],
+    });
+
+    return quote.price.regularMarketPrice.raw;
+  } catch (error) {
+    console.error("Error fetching stock price:", error);
+    return null;
+  }
+};
+
 const updateSheet = async (answers, userId) => {
   try {
     const client = new google.auth.JWT(
@@ -129,7 +139,9 @@ const updateSheet = async (answers, userId) => {
     console.log("Name, Major:", rows);
 
     let newValues = res.data.values || [];
-    newValues.push([new Date(), "NVDA", userId, ...answers]);
+    const symbol = "NVDA";
+    const price = 902; //await getCurrentStockPrice(symbol);
+    newValues.push([new Date(), symbol, userId, ...answers, "", price]);
 
     const updateOptions = {
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
