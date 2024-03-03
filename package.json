@@ -18,14 +18,16 @@
   },
   "dependencies": {
     "@google-cloud/documentai": "^7.3.1",
+    "@google-cloud/local-auth": "2.1.0",
     "@google-cloud/speech": "^5.4.1",
     "@google-cloud/translate": "^7.2.1",
     "dotenv": "^16.4.5",
     "env-yaml": "^0.1.2",
     "firebase": "^9.21.0",
     "firebase-admin": "^11.8.0",
+    "google-auth-library": "^9.6.3",
     "google-spreadsheet": "^3.3.0",
-    "googleapis": "^133.0.0",
+    "googleapis": "105",
     "node-telegram-bot-api": "^0.61.0",
     "openai": "^3.2.1"
   },
