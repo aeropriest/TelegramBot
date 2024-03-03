@@ -25,6 +25,7 @@
     "firebase": "^9.21.0",
     "firebase-admin": "^11.8.0",
     "google-spreadsheet": "^3.3.0",
+    "googleapis": "^133.0.0",
     "node-telegram-bot-api": "^0.61.0",
     "openai": "^3.2.1"
   },

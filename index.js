@@ -1,8 +1,12 @@
 const TelegramBot = require("node-telegram-bot-api");
+const { google } = require("googleapis");
 const dotenv = require("dotenv");
 dotenv.config();
 
 const bot = new TelegramBot(process.env.TELEGRAM_BOT_API_TOKEN);
+
+// const private_key = process.env.GOOGLE_PRIVATE_KEY;
+// const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID);
 
 const UP_BUTTON = { text: "🔼 Up", callback_data: "MainMenu:up:0" };
 const DOWN_BUTTON = { text: "🔽 Down", callback_data: "MainMenu:down:0" };
@@ -41,49 +45,12 @@ const CONFIDENT_BUTTON = {
   callback_data: "MainMenu:Confident:2",
 };
 
-const MENU_BUTTONS=[
-
-[const UP_BUTTON = { text: "🔼 Up", callback_data: "MainMenu:up:0" };
-const DOWN_BUTTON = { text: "🔽 Down", callback_data: "MainMenu:down:0" };
-const NEUTRAL_BUTTON = {
-  text: "🟰 Neutral",
-  callback_data: "MainMenu:neutral:0",
-};
-],
-const ONE_DAY_BUTTON = {
-  text: "1️⃣ Day",
-  callback_data: "MainMenu:1:1",
-};
-
-const SEVEN_DAY_BUTTON = {
-  text: "7️⃣ Days",
-  callback_data: "MainMenu:7:1",
-};
-
-const THIRTY_DAY_BUTTON = {
-  text: "3️⃣0️⃣  Days",
-  callback_data: "MainMenu:30:1",
-};
-
-const GUESS_BUTTON = {
-  text: "Guess",
-  callback_data: "MainMenu:Guess:2",
-};
-
-const MODERATE_BUTTON = {
-  text: "Moderate",
-  callback_data: "MainMenu:Moderate:2",
-};
-
-const CONFIDENT_BUTTON = {
-  text: "Confident",
-  callback_data: "MainMenu:Confident:2",
-};
-]
+let answers = [];
 
 const handleActions = async (ctx) => {
   const actionData = ctx.data.split(":");
   if (actionData[2] === "0") {
+    answers.push(actionData[2]);
     return bot.sendMessage(ctx.chatId, `In how many days❔`, {
       reply_markup: {
         inline_keyboard: [
@@ -92,12 +59,14 @@ const handleActions = async (ctx) => {
       },
     });
   } else if (actionData[2] === "1") {
+    answers.push(actionData[2]);
     return bot.sendMessage(ctx.chatId, `What is your confidence level❔ `, {
       reply_markup: {
         inline_keyboard: [[GUESS_BUTTON, MODERATE_BUTTON, CONFIDENT_BUTTON]],
       },
     });
   } else if (actionData[2] === "2") {
+    answers.push(actionData[2]);
     return bot.sendMessage(ctx.chatId, `Thanks for participating❗️`);
   }
 };
@@ -117,6 +86,18 @@ exports.TelegramBotWebHook = async (req, res) => {
   let ctx = req.body.callback_query || req.body.message;
   ctx.chatId = ctx.id ? ctx.message.chat.id : ctx.chat.id;
   ctx.msgId = ctx.id ? ctx.message.message_id : ctx.message_id;
+
+  // await doc.useServiceAccountAuth({
+  //   client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+  //   private_key: private_key.replace(/\\n/gm, "\n"),
+  // });
+
+  // await doc.getInfo();
+  // const sheet = doc.sheetsByIndex[sheetIndex];
+
+  // const rows = await sheet.getRows();
+  // console.log("Rows are ", rows);
+  console.log("Answers are ", answers);
 
   try {
     if (ctx.id) {
