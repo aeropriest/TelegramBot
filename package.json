@@ -10,7 +10,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx functions-framework --target=TelegramBotWebHook",
-    "deploy": "gcloud beta functions deploy myndBotWebhook --region=europe-west1 --env-vars-file .env.yml --runtime nodejs16 --trigger-http",
+    "deploy": "gcloud beta functions deploy TelegramBotWebHook --region=europe-west1 --env-vars-file .env --runtime nodejs18 --trigger-http",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
@@ -21,16 +21,19 @@
     "@google-cloud/local-auth": "2.1.0",
     "@google-cloud/speech": "^5.4.1",
     "@google-cloud/translate": "^7.2.1",
+    "axios": "^1.6.7",
     "dotenv": "^16.4.5",
     "env-yaml": "^0.1.2",
     "firebase": "^9.21.0",
     "firebase-admin": "^11.8.0",
     "google-auth-library": "^9.6.3",
+    "google-finance": "^0.1.12",
     "google-spreadsheet": "^3.3.0",
     "googleapis": "105",
     "node-telegram-bot-api": "^0.61.0",
     "openai": "^3.2.1",
-    "yahoo-finance": "^0.3.8"
+    "yahoo-finance": "^0.3.8",
+    "yahoo-stock-prices": "^1.1.0"
   },
   "keywords": [
     "Telegram",

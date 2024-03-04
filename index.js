@@ -3,6 +3,7 @@ const TelegramBot = require("node-telegram-bot-api");
 const { google } = require("googleapis");
 const keys = require("./gclient.json");
 const yahooFinance = require("yahoo-finance");
+const axios = require("axios");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -68,7 +69,7 @@ const handleActions = async (ctx) => {
     answers = [];
     return bot.sendMessage(
       ctx.chatId,
-      `Thanks for participating❗️ /start to predict again!!`
+      `Thanks for participating❗️ \n 🏁 /start to predict again!!`
     );
   }
 };
@@ -102,14 +103,18 @@ exports.TelegramBotWebHook = async (req, res) => {
   res.status(200).end();
 };
 
-const getCurrentStockPrice = async (symbol) => {
-  try {
-    const quote = await yahooFinance.quote({
-      symbol: symbol,
-      modules: ["price"],
-    });
+const getStockPrice = async (symbol) => {
+  let config = {
+    method: "get",
+    maxBodyLength: Infinity,
+    url: `https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/${symbol}/quote`,
+    headers: {},
+  };
 
-    return quote.price.regularMarketPrice.raw;
+  try {
+    const response = await axios.request(config);
+    const price = JSON.stringify(response.data.latestPrice);
+    return price;
   } catch (error) {
     console.error("Error fetching stock price:", error);
     return null;
@@ -140,7 +145,7 @@ const updateSheet = async (answers, userId) => {
 
     let newValues = res.data.values || [];
     const symbol = "NVDA";
-    const price = 902; //await getCurrentStockPrice(symbol);
+    const price = await getStockPrice(symbol);
     newValues.push([new Date(), symbol, userId, ...answers, "", price]);
 
     const updateOptions = {
